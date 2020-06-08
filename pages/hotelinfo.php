@@ -10,6 +10,10 @@
   body {
     overflow-x: hidden;
   }
+
+  .container {
+    margin: 0;
+  }
     .star {
       max-width: 40px;
     }
@@ -95,8 +99,8 @@ if(isset($_GET['hotel'])) {
     $ho_info = $row[6];
     mysqli_free_result($res);
 
-    echo '<section class="container row">';
-    echo '<div class="col-3">';
+    echo '<div class="container row">';
+    echo '<div class="col-4">';
     echo "<h1 class='text-uppercase ml-2'>$ho_name</h1>
     <span>";
     for($i=0; $i<$ho_stars; $i++) {
@@ -104,11 +108,11 @@ if(isset($_GET['hotel'])) {
   }
     echo '</span><p class="lead ml-2 mt-2">Info: '.$ho_info.'</p>';
     echo '</div>';
-    echo '<div class="col-9">';
+    echo '<div class="col-8">';
     echo '<div class="comments-block">';
     echo "<div class='card comment p-2'>";
 
-    $sel = 'SELECT hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv FROM comments WHERE hotelid='.$ho_id;
+    $sel = 'SELECT hotelid, userid, title, score, positive, negative, DATE_FORMAT(datereview, "%e %M %Y"), DATE_FORMAT(timeliv, "%M %Y"), catliv FROM comments WHERE hotelid='.$ho_id;
     $res = mysqli_query($link, $sel);
     while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
         $seluser = 'SELECT login FROM users WHERE id='.$row[1];
@@ -118,12 +122,12 @@ if(isset($_GET['hotel'])) {
         mysqli_free_result($resuser);  
         echo "<div class='card-body'>
               <h4 class='card-title'>$row[2]</h4>
-              <span class='datereview'>date('j.m.Y', $row[6])</span>
               <span class='score'>$row[3]</span>
-              <p class='card-text positive'>$row[4]</p>
-              <p class='card-text negative'>$row[5]</p>
-              <span class='timeliv'>date('M.Y', $row[6])</span>
-              <span class='catliv'>$row[7]</span>
+              <span class='datereview'>$row[6]</span>
+              <div class='card-text positive'>$row[4]</div>
+              <div class='card-text negative'>$row[5]</div>
+              <span class='timeliv'>$row[7]</span>
+              <span class='catliv'>$row[8]</span>
               </div>";     
     }
     mysqli_free_result($res);
