@@ -83,27 +83,3 @@ function login($login, $pass) {
         } 
     }
 }
-
-function comment ($hotelid, $userid, $title, $score, $positive, $negative, $datereview, $timeliv, $catliv) {
-    $hoid = trim(utf8_encode(htmlspecialchars($hotelid)));
-    $userid = trim(utf8_encode(htmlspecialchars($userid)));
-    $title = trim(utf8_encode(htmlspecialchars($title)));
-    $score = trim(utf8_encode(htmlspecialchars($score)));
-    $positive = trim(utf8_encode(htmlspecialchars($positive)));
-    $negative = trim(utf8_encode(htmlspecialchars($negative)));
-    $datereview = trim(utf8_encode(htmlspecialchars($datereview)));
-    $timeliv = trim(utf8_encode(htmlspecialchars($timelive)));
-    $catliv = trim(utf8_encode(htmlspecialchars($catliv)));
-    //echo $hoid, $userid, $title, $score, $positive, $negative, $datereview, $timeliv, $catliv;
-    
-    $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES('$hoid', '$userid', '$title', '$score', '$positive', '$negative', '$datereview', '$timeliv', '$catliv')";
-    $link = connect();
-    mysqli_query($link, $ins);
-
-    $err = mysqli_errno($link);
-    if($err) {
-        echo "<h6 class='text-danger'>Error code ".$err."</h6>";
-        return false;    
-    }
-    return true;
-}
