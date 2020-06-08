@@ -122,8 +122,8 @@ if(isset($_GET['hotel'])) {
         mysqli_free_result($resuser);  
         echo "<div class='card-body'>
               <h4 class='card-title'>$row[2]</h4>
-              <span class='score'>$row[3]</span>
               <span class='datereview'>$row[6]</span>
+              <div class='score'>$row[3]</div>             
               <div class='card-text positive'>$row[4]</div>
               <div class='card-text negative'>$row[5]</div>
               <span class='timeliv'>$row[7]</span>
