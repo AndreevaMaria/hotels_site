@@ -4,7 +4,6 @@ include_once('../pages/functions.php');
 $link = connect();
 
 if($_POST['user'] != "undefined") {
-    $hotelid = $_POST['hoid'];
     $datereview = strtotime(date("j.m.Y"));
 
     $seluserid = 'SELECT id FROM users WHERE login='.$_POST['user'];
@@ -13,17 +12,17 @@ if($_POST['user'] != "undefined") {
     $userid = $rowuserid[0];
     mysqli_free_result($resuserid);
 
-    $selhotel = 'SELECT hotel FROM hotels WHERE id='.$hotelid;
+    $selhotel = 'SELECT hotel FROM hotels WHERE id='.$_POST['hoid'];
     $reshotel = mysqli_query($link, $selhotel);
     $rowhotel = mysqli_fetch_array($reshotel, MYSQLI_NUM);
     $hotel = $rowhotel[0];
     mysqli_free_result($reshotel); 
-
-    echo "<h5>$_POST['user'], разместите свой отзыв о проживании в отеле $hotel</h5>";
-            
-    if(!isset($_POST['sendcomm'])) {    
+    
+    echo "<h5>".$_POST['user'].", разместите свой отзыв о проживании в отеле $hotel</h5>";
+          
+   // if(!isset($_POST['sendcomm'])) {    
 ?>
-    <form action="index.php?page=2" method="post" class="input-form">
+    <form action="index.php?page=2" method="get" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
             <input type="text" class="form-control" name="title">
@@ -48,14 +47,22 @@ if($_POST['user'] != "undefined") {
             <label for="catliv">Категория проживания</label>
             <input type="text" class="form-control" name="catliv">
         </div>
-        <input type="submit" value="Send comment" class="btn btn-primary" name="sendcomm">
+ <!----       <input type="submit" value="Send comment" class="btn btn-primary" name="sendcomm">--->
     </form>
 <?php
-    } else { 
-        if(comment($hotelid, $userid, $_POST['title'], $_POST['score'], $_POST['positive'], $_POST['negative'], $datereview, $_POST['timeliv'], $_POST['catliv'])) {
-            echo "<h4 class='text-success'>Ваш комментарий добавлен, ".$_POST['user']."!</h4>";
-        }
+if (isset($_GET['title']) && isset($_GET['score']) && isset($_GET['positive']) && isset($_GET['negative']) && isset($_GET['timeliv']) && isset($_GET['catliv'])) {
+    echo 'alert("Thanks for review")';
+    $ins = 'INSERT INTO `comments` (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('.$_POST['hoid'].', '.$userid.', '.$_GET['title'].', '.$_GET['score'].', '.$_GET['positive'].', '.$_GET['negative'].', '.$datereview.', '.$_GET['timeliv'].', '.$_GET['catliv'].')';
+    mysqli_query($link, $ins);
+    $err = mysqli_errno($link);
+    if($err) {
+        echo "<h6 class='text-danger'>Error code ".$err."</h6>";   
     }
+ //   } else { 
+ //       if(comment($hotelid, $userid, $_POST['title'], $_POST['score'], $_POST['positive'], $_POST['negative'], $datereview, $_POST['timeliv'], $_POST['catliv'])) {
+    echo "<h4 class='text-success'>Ваш комментарий добавлен, ".$_POST['user']."!</h4>";
+       }
+//    }
 } else {
     echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
 } 

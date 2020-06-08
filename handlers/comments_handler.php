@@ -17,9 +17,11 @@ while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
     $rowuser = mysqli_fetch_array($resuser, MYSQLI_NUM);
     echo "<div class='card'><div class='card-header'>
             <div class='user media'>";
-    $img = base64_encode($rowuser[1]);
-    echo "<img class='d-flex mr-3' src='data:image/*; base64, $img' style='width:30px;'>
+    if ($rowuser[1] != NULL) {
+        $img = base64_encode($rowuser[1]);
+        echo "<img class='d-flex mr-3' src='data:image/*; base64, $img' style='width:30px;'>
             <p class='media-body lead'>$rowuser[0]</p>";
+    }
     mysqli_free_result($resuser);
 
     echo "</div></div>";   

@@ -84,7 +84,7 @@ function login($login, $pass) {
     }
 }
 
-function comment($hotelid, $userid, $title, $score, $positive, $negative, $datereview, $timeliv, $catliv) {
+function comment ($hotelid, $userid, $title, $score, $positive, $negative, $datereview, $timeliv, $catliv) {
     $hoid = trim(utf8_encode(htmlspecialchars($hotelid)));
     $userid = trim(utf8_encode(htmlspecialchars($userid)));
     $title = trim(utf8_encode(htmlspecialchars($title)));
@@ -96,7 +96,7 @@ function comment($hotelid, $userid, $title, $score, $positive, $negative, $dater
     $catliv = trim(utf8_encode(htmlspecialchars($catliv)));
     //echo $hoid, $userid, $title, $score, $positive, $negative, $datereview, $timeliv, $catliv;
     
-    $ins = "INSERT INTO comments(hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES('$hoid', '$userid', '$title', '$score', '$positive', '$negative', '$datereview', '$timeliv', '$catliv')";
+    $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES('$hoid', '$userid', '$title', '$score', '$positive', '$negative', '$datereview', '$timeliv', '$catliv')";
     $link = connect();
     mysqli_query($link, $ins);
 
