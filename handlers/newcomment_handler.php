@@ -44,18 +44,19 @@ if($_POST['user'] != "undefined") {
             <input type="text" class="form-control" name="catliv">
         </div>
     </form>';
-} else {
-    echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
-} 
+ 
 
 if (isset($_GET['title']) && isset($_GET['score']) && isset($_GET['positive']) && isset($_GET['negative']) && isset($_GET['timeliv']) && isset($_GET['catliv'])) {
     $timeliv = strtotime($_GET['timeliv']);
     echo "<h4 class='text-success'>Ваш комментарий добавлен, ".$_POST['user']."!</h4>";
     echo 'alert("Thanks for review")';
-    $ins = 'INSERT INTO `comments` (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('.$_POST['hoid'].', '.$userid.', '.$_GET['title'].', '.$_GET['score'].', '.$_GET['positive'].', '.$_GET['negative'].', '.$datereview.', '.$timeliv.', '.$_GET['catliv'].')';
+    $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('{$_POST["hoid"]}', '$userid', '{$_GET["title"]}', '{$_GET["score"]}', '{$_GET["positive"]}', '{$_GET["negative"]}', '$datereview', '$timeliv', '{$_GET["catliv"]}')";
     mysqli_query($link, $ins);
     $err = mysqli_errno($link);
     if($err) {
         echo "<h6 class='text-danger'>Error code ".$err."</h6>";   
     }
+}
+} else {
+    echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
 }
