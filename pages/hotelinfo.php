@@ -122,11 +122,11 @@ if(isset($_GET['hotel'])) {
         mysqli_free_result($resuser);  
         echo "<div class='card-body'>
               <h4 class='card-title'>$row[2]</h4>
-              <span class='datereview'>$row[6]</span>
-              <div class='score'>$row[3]</div>             
-              <div class='card-text positive'>$row[4]</div>
-              <div class='card-text negative'>$row[5]</div>
-              <span class='timeliv'>$row[7]</span>
+              <span class='datereview'>Date review: $row[6]</span>
+              <div class='score'>Score: $row[3]</div>             
+              <div class='card-text positive'>Good: $row[4]</div>
+              <div class='card-text negative'>Bad: $row[5]</div>
+              <span class='timeliv'>Time of living, category: $row[7]</span>
               <span class='catliv'>$row[8]</span>
               </div>";     
     }
