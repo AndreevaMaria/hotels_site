@@ -17,7 +17,6 @@ if($_POST['user'] != "undefined") {
     mysqli_free_result($reshotel); 
     
     echo "<h5>".$_POST['user'].", разместите свой отзыв о проживании в отеле $hotel</h5>";
-          
     echo '<form action="index.php?page=2" method="get" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
@@ -47,14 +46,22 @@ if($_POST['user'] != "undefined") {
  
 
 if (isset($_GET['title']) && isset($_GET['score']) && isset($_GET['positive']) && isset($_GET['negative']) && isset($_GET['timeliv']) && isset($_GET['catliv'])) {
-    $timeliv = strtotime($_GET['timeliv']);
-    echo "<h4 class='text-success'>Ваш комментарий добавлен, ".$_POST['user']."!</h4>";
     echo 'alert("Thanks for review")';
-    $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('{$_POST["hoid"]}', '$userid', '{$_GET["title"]}', '{$_GET["score"]}', '{$_GET["positive"]}', '{$_GET["negative"]}', '$datereview', '$timeliv', '{$_GET["catliv"]}')";
+    $hotelid = trim(utf8_encode(htmlspecialchars($_POST["hoid"])));
+    $title = trim(utf8_encode(htmlspecialchars($_GET['title'])));
+    $score = trim(utf8_encode(htmlspecialchars($_GET['score'])));
+    $positive = trim(utf8_encode(htmlspecialchars($_GET['positive'])));
+    $negative = trim(utf8_encode(htmlspecialchars($_GET['negative'])));
+    $catlive = trim(utf8_encode(htmlspecialchars($_GET['catlive'])));
+    $timeliv = trim(utf8_encode(htmlspecialchars(strtotime($_GET['timeliv']))));
+    $datereview = trim(utf8_encode(htmlspecialchars(strtotime(date("j.m.Y")))));
+    $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('$hotelid', '$userid', '$title', '$score', '$positive', '$negative', '$datereview', '$timeliv', '$catliv')";
     mysqli_query($link, $ins);
     $err = mysqli_errno($link);
     if($err) {
         echo "<h6 class='text-danger'>Error code ".$err."</h6>";   
+    } else {
+    echo "<h4 class='text-success'>Ваш комментарий добавлен, ".$_POST['user']."!</h4>";
     }
 }
 } else {

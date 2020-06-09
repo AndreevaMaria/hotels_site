@@ -49,10 +49,10 @@ function register($name, $pass, $email) {
             return false;
         }
     }
-
     return true;
 
 }
+
 function login($login, $pass) {
     $name = trim(utf8_encode(htmlspecialchars($login)));
     $pass = trim(utf8_encode(htmlspecialchars($pass)));
