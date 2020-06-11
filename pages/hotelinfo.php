@@ -118,12 +118,12 @@ if(isset($_GET['hotel'])) {
         $seluser = 'SELECT login FROM users WHERE id='.$row[1];
         $resuser = mysqli_query($link, $seluser);
         $rowuser = mysqli_fetch_array($resuser, MYSQLI_NUM);
-              echo "<div class='card-header'>$rowuser[0]</div>";
+              echo "<div class='card-header login'>$rowuser[0]
+              <div class='datereview'> $row[6]</div></div>";
         mysqli_free_result($resuser);  
         echo "<div class='card-body'>
-              <h4 class='card-title'>$row[2]</h4>
-              <span class='datereview'>Date review: $row[6]</span>
-              <div class='score'>Score: $row[3]</div>             
+              <h4 class='card-title'>$row[2]
+              <span class='badge badge-success ml-2 score'>$row[3]</span></h4>    
               <div class='card-text positive'>Good: $row[4]</div>
               <div class='card-text negative'>Bad: $row[5]</div>
               <span class='timeliv'>Time of living, category: $row[7]</span>

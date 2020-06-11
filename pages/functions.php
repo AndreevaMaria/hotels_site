@@ -18,7 +18,6 @@ function connect($host="127.0.0.1:3306", $user="root", $pass="123456", $dbname="
 }
 
 function register($name, $pass, $email) {
-    $name = trim(utf8_encode(htmlspecialchars($name)));
     $pass = trim(utf8_encode(htmlspecialchars($pass)));
     $email = trim(utf8_encode(htmlspecialchars($email)));
 

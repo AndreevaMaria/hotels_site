@@ -15,23 +15,24 @@ while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
     $seluser = 'SELECT login, avatar FROM users WHERE id='.$row[1];
     $resuser = mysqli_query($link, $seluser);
     $rowuser = mysqli_fetch_array($resuser, MYSQLI_NUM);
-    echo "<div class='card'><div class='card-header'>
-            <div class='user media'>";
-    if ($rowuser[0] != NULL) {
-        $img = base64_encode($rowuser[0]);
-        echo "<img class='d-flex mr-3' src='data:image/*; base64, $img' style='width:30px;'>";
+    echo "<div class='card'>
+            <div class='card-header'>
+                <div class='media'>";
+    if ($rowuser[1] != NULL) {
+        $img = base64_encode($rowuser[1]);
+        echo "<img class='d-flex align-self-start mr-3 img-fluid' src='data:image/*; base64, $img' style='height:40px;'>";
     }
-    echo "<p class='media-body'>$rowuser[0]</p>";
+    echo "<div class='media-body login'>$rowuser[0]
+            <div class='datereview'> $row[6]</div></div>";
     mysqli_free_result($resuser);
     echo "</div></div>";   
-    echo "<div class='card-body'>
-            <h5 class='card-title'>$row[2]</h5>
-            <span class='score'>My score $row[3]</span>
-            <div class='datereview'>Date review $row[6]</div>
+    echo "<class='card-body'>
+            <h5 class='card-title'>$row[2]
+            <span class='badge badge-success ml-2 score'>$row[3]</span></h5>
             <div class='card-text positive'>Good impressions $row[4]</div>
             <div class='card-text negative'>Bad impressions $row[5]</div>
-            <span class='timeliv'>When lived $row[7]</span> <br>
-            <span class='catliv'>Where lived $row[8]</span>
+            <span class='timeliv'>Time of living, category: $row[7]</span>
+            <span class='catliv'>$row[8]</span>
             </div></div>";     
 }
 mysqli_free_result($res);

@@ -17,6 +17,7 @@ if($_POST['user'] != "undefined") {
     mysqli_free_result($reshotel); 
     
     echo "<h5>".$_POST['user'].", разместите свой отзыв о проживании в отеле $hotel</h5>";
+    if (!isset($_GET['sndbtn'])) {
     echo '<form action="index.php?page=2" method="get" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
@@ -42,10 +43,10 @@ if($_POST['user'] != "undefined") {
             <label for="catliv">Категория проживания</label>
             <input type="text" class="form-control" name="catliv">
         </div>
+        <input type="submit" value="Send review" class="btn btn-primary" name="sndbtn">
     </form>';
  
-
-if (isset($_GET['title']) && isset($_GET['score']) && isset($_GET['positive']) && isset($_GET['negative']) && isset($_GET['timeliv']) && isset($_GET['catliv'])) {
+    } else {
     echo 'alert("Thanks for review")';
     $hotelid = trim(utf8_encode(htmlspecialchars($_POST["hoid"])));
     $title = trim(utf8_encode(htmlspecialchars($_GET['title'])));
@@ -55,8 +56,10 @@ if (isset($_GET['title']) && isset($_GET['score']) && isset($_GET['positive']) &
     $catlive = trim(utf8_encode(htmlspecialchars($_GET['catlive'])));
     $timeliv = trim(utf8_encode(htmlspecialchars(strtotime($_GET['timeliv']))));
     $datereview = trim(utf8_encode(htmlspecialchars(strtotime(date("j.m.Y")))));
+    
     $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('$hotelid', '$userid', '$title', '$score', '$positive', '$negative', '$datereview', '$timeliv', '$catliv')";
     mysqli_query($link, $ins);
+    
     $err = mysqli_errno($link);
     if($err) {
         echo "<h6 class='text-danger'>Error code ".$err."</h6>";   
