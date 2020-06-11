@@ -2,10 +2,11 @@
 <?php
 $link = connect();
 
-if(!isset($_SESSION['ruser'])) {
-    $user = "";
-} else {
-    $user = $_SESSION['ruser'];
+if(isset($_SESSION['ruser']) || isset($_SESSION['radmin'])) {
+    if(isset($_SESSION['ruser'])) { $user = $_SESSION['ruser']; }
+    if(isset($_SESSION['radmin'])) { $user = $_SESSION['radmin']; }
+} else { 
+    $user = ""; 
 }
 
 echo '<div class="form-inline">';

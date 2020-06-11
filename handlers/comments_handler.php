@@ -15,18 +15,19 @@ while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
     $seluser = 'SELECT login, avatar FROM users WHERE id='.$row[1];
     $resuser = mysqli_query($link, $seluser);
     $rowuser = mysqli_fetch_array($resuser, MYSQLI_NUM);
-    echo "<div class='card'>
+    echo "<div class='card mb-2'>
             <div class='card-header'>
                 <div class='media'>";
     if ($rowuser[1] != NULL) {
         $img = base64_encode($rowuser[1]);
         echo "<img class='d-flex align-self-start mr-3 img-fluid' src='data:image/*; base64, $img' style='height:40px;'>";
     }
-    echo "<div class='media-body login'>$rowuser[0]
-            <div class='datereview'> $row[6]</div></div>";
+    echo "<div class='media-body'>
+            <div class='font-weight-bold login'>$rowuser[0]</div>
+            <div class='font-italic datereview'> $row[6]</div></div>";
     mysqli_free_result($resuser);
     echo "</div></div>";   
-    echo "<class='card-body'>
+    echo "<div class='card-body p-2'>
             <h5 class='card-title'>$row[2]
             <span class='badge badge-success ml-2 score'>$row[3]</span></h5>
             <div class='card-text positive'>Good impressions $row[4]</div>

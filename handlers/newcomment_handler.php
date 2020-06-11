@@ -17,8 +17,8 @@ if($_POST['user'] != "undefined") {
     mysqli_free_result($reshotel); 
     
     echo "<h5>".$_POST['user'].", разместите свой отзыв о проживании в отеле $hotel</h5>";
-    if (!isset($_GET['sndbtn'])) {
-    echo '<form action="index.php?page=2" method="get" class="input-form">
+    
+    echo '<form action="index.php?page=2" method="post" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
             <input type="text" class="form-control" name="title">
@@ -45,16 +45,21 @@ if($_POST['user'] != "undefined") {
         </div>
         <input type="submit" value="Send review" class="btn btn-primary" name="sndbtn">
     </form>';
- 
-    } else {
+} else {
+    echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
+    if(login($_POST['login'], $_POST['pass'])) {
+        echo '<script>window.location.reload()</script>';
+    }
+}
+if (isset($_POST['sndbtn'])) {
     echo 'alert("Thanks for review")';
     $hotelid = trim(utf8_encode(htmlspecialchars($_POST["hoid"])));
-    $title = trim(utf8_encode(htmlspecialchars($_GET['title'])));
-    $score = trim(utf8_encode(htmlspecialchars($_GET['score'])));
-    $positive = trim(utf8_encode(htmlspecialchars($_GET['positive'])));
-    $negative = trim(utf8_encode(htmlspecialchars($_GET['negative'])));
-    $catlive = trim(utf8_encode(htmlspecialchars($_GET['catlive'])));
-    $timeliv = trim(utf8_encode(htmlspecialchars(strtotime($_GET['timeliv']))));
+    $title = trim(utf8_encode(htmlspecialchars($_POST['title'])));
+    $score = trim(utf8_encode(htmlspecialchars($_POST['score'])));
+    $positive = trim(utf8_encode(htmlspecialchars($_POST['positive'])));
+    $negative = trim(utf8_encode(htmlspecialchars($_POST['negative'])));
+    $catlive = trim(utf8_encode(htmlspecialchars($_POST['catlive'])));
+    $timeliv = trim(utf8_encode(htmlspecialchars(strtotime($_POST['timeliv']))));
     $datereview = trim(utf8_encode(htmlspecialchars(strtotime(date("j.m.Y")))));
     
     $ins = "INSERT INTO comments (hotelid, userid, title, score, positive, negative, datereview, timeliv, catliv) VALUES ('$hotelid', '$userid', '$title', '$score', '$positive', '$negative', '$datereview', '$timeliv', '$catliv')";
@@ -67,6 +72,4 @@ if($_POST['user'] != "undefined") {
     echo "<h4 class='text-success'>Ваш комментарий добавлен, ".$_POST['user']."!</h4>";
     }
 }
-} else {
-    echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
-}
+
