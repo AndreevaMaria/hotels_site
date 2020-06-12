@@ -8,6 +8,11 @@ if(isset($_SESSION['ruser']) || isset($_SESSION['radmin'])) {
 } else { 
     $user = ""; 
 }
+$seluserid = 'SELECT id FROM users WHERE login='.$user;
+$resuserid = mysqli_query($link, $seluserid);
+$rowuserid = mysqli_fetch_array($resuserid, MYSQLI_NUM);
+$userid = $rowuserid[0];
+mysqli_free_result($resuserid);
 
 echo '<div class="form-inline">';
 echo '<select onchange="showCities(this.value)">';
@@ -28,7 +33,7 @@ while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
 echo '</select>';
 mysqli_free_result($res);
 
-echo '<select id="hotelid" onchange="showComments(this.value); addNewComment(this.value, '.$user.');">';
+echo '<select id="hotelid" onchange="showComments(this.value); addNewComment(this.value, '.$userid.');">';
 echo '<option value="0">Select hotel...</option>';
 $res = mysqli_query($link, 'SELECT * FROM hotels ORDER BY hotel');
 while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
@@ -76,11 +81,11 @@ echo '<div id="comment"></div>';
         }
     }
 
-    function addNewComment(hotelid, user) {
+    function addNewComment(hotelid, userid) {
         const ao = new XMLHttpRequest();
         ao.open('POST', 'handlers/newcomment_handler.php', true);
         ao.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        ao.send('hoid='+ hotelid +'&'+ 'user=' + user);
+        ao.send('hoid='+ hotelid +'&'+ 'usid=' + userid);
         ao.onreadystatechange = function() {
             if(ao.readyState == 4 && ao.status == 200) {
                 document.querySelector('#comment').innerHTML = ao.responseText;
