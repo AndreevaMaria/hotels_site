@@ -17,7 +17,7 @@ if($_POST['usid'] != 0) {
     
     echo "<h5>".$user.", разместите свой отзыв о проживании в отеле $hotel</h5>";
     
-    echo '<form action="handlers/sending_handler.php" method="post" class="input-form">
+    echo '<form action="sending.php" method="post" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
             <input type="text" class="form-control" name="title">

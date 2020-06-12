@@ -1,10 +1,9 @@
 <?php
 error_reporting(E_ALL);
-include_once('../pages/functions.php');
+include_once('pages/functions.php');
 $link = connect();
 
 if(isset($_POST['sendReview'])) {
-    echo '<script>alert("Thanks for review")</script>';
     $hotelid = $_POST['hotelid'];
     $userid = $_POST['userid'];
     $title = trim($_POST['title']);
@@ -22,6 +21,14 @@ if(isset($_POST['sendReview'])) {
     if($err) {
         echo "<h6 class='text-danger'>Error code ".$err."</h6>";   
     } else {
-        return "<script>document.querySelector('#response').innerHTML = `<h4 class='text-success'>Ваш комментарий добавлен!</h4>`</script>";
+        echo "<h4 class='text-success'>Ваш комментарий добавлен!</h4>";
     }
 }
+?>
+<button onclick="myFunction()">GET BACK</button>
+
+<script>
+function myFunction() {
+  location.replace("index.php?page=2")
+}
+</script>
