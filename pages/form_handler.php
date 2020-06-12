@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 $link = connect();
 
 if (isset($_POST['sndbtn'])) {

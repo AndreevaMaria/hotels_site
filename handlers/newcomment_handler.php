@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 include_once('../pages/functions.php');
 $link = connect();
 
-if($_POST['usid'] != "") {
+if($_POST['usid'] != 0) {
     $selhotel = 'SELECT hotel FROM hotels WHERE id='.$_POST['hoid'];
     $reshotel = mysqli_query($link, $selhotel);
     $rowhotel = mysqli_fetch_array($reshotel, MYSQLI_NUM);

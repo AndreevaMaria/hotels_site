@@ -5,13 +5,14 @@ $link = connect();
 if(isset($_SESSION['ruser']) || isset($_SESSION['radmin'])) {
     if(isset($_SESSION['ruser'])) { $user = $_SESSION['ruser']; }
     if(isset($_SESSION['radmin'])) { $user = $_SESSION['radmin']; }
+    echo $user;
+    $seluserid = 'SELECT id FROM users WHERE login='.$user;
+    $resuserid = mysqli_query($link, $seluserid);
+    $rowuserid = mysqli_fetch_array($resuserid, MYSQLI_NUM);
+    $userid = $rowuserid[0];
 } else { 
-    $user = ""; 
+    $userid = 0;
 }
-$seluserid = 'SELECT id FROM users WHERE login='.$user;
-$resuserid = mysqli_query($link, $seluserid);
-$rowuserid = mysqli_fetch_array($resuserid, MYSQLI_NUM);
-$userid = $rowuserid[0];
 mysqli_free_result($resuserid);
 
 echo '<div class="form-inline">';
@@ -32,6 +33,8 @@ while($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
 }
 echo '</select>';
 mysqli_free_result($res);
+
+
 
 echo '<select id="hotelid" onchange="showComments(this.value); addNewComment(this.value, '.$userid.');">';
 echo '<option value="0">Select hotel...</option>';
