@@ -9,10 +9,16 @@ if($_POST['usid'] != 0) {
     $rowhotel = mysqli_fetch_array($reshotel, MYSQLI_NUM);
     $hotel = $rowhotel[0];
     mysqli_free_result($reshotel); 
+
+    $resuser = mysqli_query($link, 'SELECT `login` FROM users WHERE id='.$_POST['usid']);
+    $rowuserid = mysqli_fetch_array($resuser, MYSQLI_NUM);
+    $user = $rowuser[0];
+    echo $user;
+    mysqli_free_result($resuser);
     
-    echo "<h5>".$_SESSION['ruser'].", разместите свой отзыв о проживании в отеле $hotel</h5>";
+    echo "<h5>".$user.", разместите свой отзыв о проживании в отеле $hotel</h5>";
     
-    echo '<form action="form_hadler.php" method="post" class="input-form">
+    echo '<form action="handlers/form_handler.php" method="post" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
             <input type="text" class="form-control" name="title">
@@ -43,7 +49,4 @@ if($_POST['usid'] != 0) {
     </form>';
 } else {
     echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
-    if(login($_POST['login'], $_POST['pass'])) {
-        echo '<script>window.location.reload()</script>';
-    }
 }

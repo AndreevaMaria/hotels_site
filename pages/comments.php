@@ -5,11 +5,9 @@ $link = connect();
 if(isset($_SESSION['ruser']) || isset($_SESSION['radmin'])) {
     if(isset($_SESSION['ruser'])) { $user = $_SESSION['ruser']; }
     if(isset($_SESSION['radmin'])) { $user = $_SESSION['radmin']; }
-    echo $user;
-    $seluserid = 'SELECT id FROM users WHERE login='.$user;
-    $resuserid = mysqli_query($link, $seluserid);
+    $resuserid = mysqli_query($link, 'SELECT id FROM `users` WHERE `login`='.$user);
     $rowuserid = mysqli_fetch_array($resuserid, MYSQLI_NUM);
-    $userid = $rowuserid[0];
+    $userid = (int)$rowuserid[0];
 } else { 
     $userid = 0;
 }
