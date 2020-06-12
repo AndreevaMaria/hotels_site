@@ -5,13 +5,15 @@ $link = connect();
 if(isset($_SESSION['ruser']) || isset($_SESSION['radmin'])) {
     if(isset($_SESSION['ruser'])) { $user = $_SESSION['ruser']; }
     if(isset($_SESSION['radmin'])) { $user = $_SESSION['radmin']; }
-    $resuserid = mysqli_query($link, 'SELECT id FROM `users` WHERE `login`='.$user);
+    $user = strval($user);
+    $resuserid = mysqli_query($link, 'SELECT id FROM `users` WHERE `login`="'.$user.'"');
     $rowuserid = mysqli_fetch_array($resuserid, MYSQLI_NUM);
     $userid = (int)$rowuserid[0];
+    mysqli_free_result($resuserid);
 } else { 
     $userid = 0;
 }
-mysqli_free_result($resuserid);
+
 
 echo '<div class="form-inline">';
 echo '<select onchange="showCities(this.value)">';

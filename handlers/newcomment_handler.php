@@ -11,14 +11,13 @@ if($_POST['usid'] != 0) {
     mysqli_free_result($reshotel); 
 
     $resuser = mysqli_query($link, 'SELECT `login` FROM users WHERE id='.$_POST['usid']);
-    $rowuserid = mysqli_fetch_array($resuser, MYSQLI_NUM);
+    $rowuser = mysqli_fetch_array($resuser, MYSQLI_NUM);
     $user = $rowuser[0];
-    echo $user;
     mysqli_free_result($resuser);
     
     echo "<h5>".$user.", разместите свой отзыв о проживании в отеле $hotel</h5>";
     
-    echo '<form action="handlers/form_handler.php" method="post" class="input-form">
+    echo '<form action="handlers/sending_handler.php" method="post" class="input-form">
         <div class="form-group">
             <label for="title">Заголовок отзыва</label>
             <input type="text" class="form-control" name="title">
@@ -45,8 +44,10 @@ if($_POST['usid'] != 0) {
         </div>
         <input type="hidden" name="hotelid" value="'.$_POST['hoid'].'">
         <input type="hidden" name="userid" value="'.$_POST['usid'].'">
-        <input type="submit" value="Send review" class="btn btn-primary" name="sndbtn">
-    </form>';
+        <input type="hidden" name="datereview" value="'.date("Y.m.j").'">
+        <input type="submit" value="Send review" class="btn btn-primary" name="sendReview">
+    </form>
+    <div id="response"></div>';
 } else {
     echo "<h6 class='text-danger'>Чтобы оставить комментарий, вам необходимо зарегистрироваться!</h6>";
 }

@@ -12,7 +12,7 @@ function connect($host="127.0.0.1:3306", $user="root", $pass="123456", $dbname="
         echo "Ошибка при загрузке кодировки символов utf8: " . mysqli_error($link);
         exit;
     }
-    echo "<div class='badge badge-success'>Connection successful</div>";
+    //echo "<div class='badge badge-success'>Connection successful</div>";
     echo "</div></div>";
     return $link;
 }
