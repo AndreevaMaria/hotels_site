@@ -99,16 +99,16 @@ if(isset($_GET['hotel'])) {
     $ho_info = $row[6];
     mysqli_free_result($res);
 
-    echo '<div class="container row">';
-    echo '<div class="col-4">';
+    echo '<div class="row mx-4 my-2">';
+    echo '<div class="col-4 ml-4">';
     echo "<h1 class='text-uppercase ml-2'>$ho_name</h1>
     <span>";
     for($i=0; $i<$ho_stars; $i++) {
       echo '<img src="../images/star.png" alt="star" class="star">';
   }
-    echo '</span><p class="lead ml-2 mt-2">Info: '.$ho_info.'</p>';
+    echo '</span><p class="lead ml-2 mt-5">Info: '.$ho_info.'</p>';
     echo '</div>';
-    echo '<div class="col-8">';
+    echo '<div class="col-7">';
     echo '<div class="comments-block">';
     echo "<div class='card comment p-2'>";
 
@@ -135,7 +135,7 @@ if(isset($_GET['hotel'])) {
     echo '</div></div>';
 
     echo '<div class="col-12">';
-    echo '<p class="lead ml-2">Watch  our pictures</p>';
+    echo '<p class="lead ml-4 pl-2">Watch  our pictures</p>';
     $sel = 'SELECT imagepath FROM images WHERE hotelid='.$ho_id;
     $result = mysqli_query($link, $sel);
     $i = 0;
@@ -168,7 +168,7 @@ if(isset($_GET['hotel'])) {
       $i++;
     }
     echo '</ol></div></div></div>';
-    echo '</section>';
+    echo '</div></div>';
     mysqli_free_result($result);
 }
 ?>
